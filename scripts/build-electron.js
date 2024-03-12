@@ -4,6 +4,8 @@ const util = require('util');
 const spawn = util.promisify(require('child_process').spawn);
 
 async function deleteFileIfExists(filePath) {
+
+  
   try {
     const exists = await fs.pathExists(filePath);
     if (exists) {
