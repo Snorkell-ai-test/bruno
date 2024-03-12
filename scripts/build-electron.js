@@ -3,6 +3,11 @@ const fs = require('fs-extra');
 const util = require('util');
 const spawn = util.promisify(require('child_process').spawn);
 
+/**
+ * Asynchronously checks if a file exists and deletes it if it does.
+ * @param {string} filePath - The path of the file to be checked and deleted.
+ * @throws {Error} - If there is an error while checking the existence of the file or deleting it.
+ */
 async function deleteFileIfExists(filePath) {
 
   
