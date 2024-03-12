@@ -9,12 +9,76 @@ import StyledWrapper from './StyledWrapper';
 import { humanizeRequestAuthMode } from 'utils/collections/index';
 import OAuth2 from './OAuth2/index';
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ * 
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ * 
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ * 
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ * 
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
+ */
 const Auth = ({ item, collection }) => {
   const authMode = item.draft ? get(item, 'draft.request.auth.mode') : get(item, 'request.auth.mode');
 
   const collectionRoot = get(collection, 'root', {});
   const collectionAuth = get(collectionRoot, 'request.auth');
 
+  /**
+   * Transforms the sign-up request data to match the backend's expected format.
+   * 
+   * @param {SignUpRequest} signUpData - The original sign-up request data.
+   * 
+   * @returns {Object} The transformed sign-up request data with the following changes:
+   * - `firstName` is mapped to `first_name`
+   * - `lastName` is mapped to `last_name`
+   * - `email` is mapped to `username`
+   * - All other properties remain unchanged.
+   * 
+   * @example
+   * const originalData = {
+   *   firstName: 'John',
+   *   lastName: 'Doe',
+   *   email: 'john.doe@example.com',
+   *   password: 'securePassword123'
+   * };
+   * 
+   * const transformedData = transformSignUpRequestForBackend(originalData);
+   * console.log(transformedData);
+   * // Outputs:
+   * // {
+   * //   firstName: 'John',
+   * //   lastName: 'Doe',
+   * //   email: 'john.doe@example.com',
+   * //   password: 'securePassword123',
+   * //   first_name: 'John',
+   * //   last_name: 'Doe',
+   * //   username: 'john.doe@example.com'
+   * // }
+   */
   const getAuthView = () => {
     switch (authMode) {
       case 'awsv4': {

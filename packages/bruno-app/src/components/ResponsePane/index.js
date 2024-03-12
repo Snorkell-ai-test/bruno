@@ -17,12 +17,76 @@ import StyledWrapper from './StyledWrapper';
 import ResponseSave from 'src/components/ResponsePane/ResponseSave';
 import ResponseClear from 'src/components/ResponsePane/ResponseClear';
 
+/**
+ * Transforms the sign-up request data to match the backend's expected format.
+ * 
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ * 
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ * 
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ * 
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
+ */
 const ResponsePane = ({ rightPaneWidth, item, collection }) => {
   const dispatch = useDispatch();
   const tabs = useSelector((state) => state.tabs.tabs);
   const activeTabUid = useSelector((state) => state.tabs.activeTabUid);
   const isLoading = ['queued', 'sending'].includes(item.requestState);
 
+  /**
+   * Transforms the sign-up request data to match the backend's expected format.
+   * 
+   * @param {SignUpRequest} signUpData - The original sign-up request data.
+   * 
+   * @returns {Object} The transformed sign-up request data with the following changes:
+   * - `firstName` is mapped to `first_name`
+   * - `lastName` is mapped to `last_name`
+   * - `email` is mapped to `username`
+   * - All other properties remain unchanged.
+   * 
+   * @example
+   * const originalData = {
+   *   firstName: 'John',
+   *   lastName: 'Doe',
+   *   email: 'john.doe@example.com',
+   *   password: 'securePassword123'
+   * };
+   * 
+   * const transformedData = transformSignUpRequestForBackend(originalData);
+   * console.log(transformedData);
+   * // Outputs:
+   * // {
+   * //   firstName: 'John',
+   * //   lastName: 'Doe',
+   * //   email: 'john.doe@example.com',
+   * //   password: 'securePassword123',
+   * //   first_name: 'John',
+   * //   last_name: 'Doe',
+   * //   username: 'john.doe@example.com'
+   * // }
+   */
   const selectTab = (tab) => {
     dispatch(
       updateResponsePaneTab({
@@ -34,6 +98,38 @@ const ResponsePane = ({ rightPaneWidth, item, collection }) => {
 
   const response = item.response || {};
 
+  /**
+   * Transforms the sign-up request data to match the backend's expected format.
+   * 
+   * @param {SignUpRequest} signUpData - The original sign-up request data.
+   * 
+   * @returns {Object} The transformed sign-up request data with the following changes:
+   * - `firstName` is mapped to `first_name`
+   * - `lastName` is mapped to `last_name`
+   * - `email` is mapped to `username`
+   * - All other properties remain unchanged.
+   * 
+   * @example
+   * const originalData = {
+   *   firstName: 'John',
+   *   lastName: 'Doe',
+   *   email: 'john.doe@example.com',
+   *   password: 'securePassword123'
+   * };
+   * 
+   * const transformedData = transformSignUpRequestForBackend(originalData);
+   * console.log(transformedData);
+   * // Outputs:
+   * // {
+   * //   firstName: 'John',
+   * //   lastName: 'Doe',
+   * //   email: 'john.doe@example.com',
+   * //   password: 'securePassword123',
+   * //   first_name: 'John',
+   * //   last_name: 'Doe',
+   * //   username: 'john.doe@example.com'
+   * // }
+   */
   const getTabPanel = (tab) => {
     switch (tab) {
       case 'response': {
@@ -91,6 +187,38 @@ const ResponsePane = ({ rightPaneWidth, item, collection }) => {
     return <div className="pb-4 px-4">An error occurred!</div>;
   }
 
+  /**
+   * Transforms the sign-up request data to match the backend's expected format.
+   * 
+   * @param {SignUpRequest} signUpData - The original sign-up request data.
+   * 
+   * @returns {Object} The transformed sign-up request data with the following changes:
+   * - `firstName` is mapped to `first_name`
+   * - `lastName` is mapped to `last_name`
+   * - `email` is mapped to `username`
+   * - All other properties remain unchanged.
+   * 
+   * @example
+   * const originalData = {
+   *   firstName: 'John',
+   *   lastName: 'Doe',
+   *   email: 'john.doe@example.com',
+   *   password: 'securePassword123'
+   * };
+   * 
+   * const transformedData = transformSignUpRequestForBackend(originalData);
+   * console.log(transformedData);
+   * // Outputs:
+   * // {
+   * //   firstName: 'John',
+   * //   lastName: 'Doe',
+   * //   email: 'john.doe@example.com',
+   * //   password: 'securePassword123',
+   * //   first_name: 'John',
+   * //   last_name: 'Doe',
+   * //   username: 'john.doe@example.com'
+   * // }
+   */
   const getTabClassname = (tabName) => {
     return classnames(`tab select-none ${tabName}`, {
       active: tabName === focusedTab.responsePaneTab

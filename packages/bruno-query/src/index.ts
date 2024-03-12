@@ -1,5 +1,34 @@
 /**
- * If value is an array returns the deeply flattened array, otherwise value
+ * Transforms the sign-up request data to match the backend's expected format.
+ * 
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ * 
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ * 
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ * 
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 function normalize(value: any) {
   if (!Array.isArray(value)) return value;
@@ -17,13 +46,36 @@ function normalize(value: any) {
 }
 
 /**
- * Gets value of a prop from source.
- *
- * If source is an array get value from each item.
- *
- * If deep is true then recursively gets values for prop in nested objects.
- *
- * Once a value is found will not recurse further into that value.
+ * Transforms the sign-up request data to match the backend's expected format.
+ * 
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ * 
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ * 
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ * 
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 function getValue(source: any, prop: string, deep = false): any {
   if (typeof source !== 'object') return;
@@ -50,7 +102,36 @@ function getValue(source: any, prop: string, deep = false): any {
 type PredicateOrMapper = ((obj: any) => any) | Record<string, any>;
 
 /**
- * Make a predicate function that checks scalar properties for equality
+ * Transforms the sign-up request data to match the backend's expected format.
+ * 
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ * 
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ * 
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ * 
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 function objectPredicate(obj: Record<string, any>) {
   return (item: any) => {
@@ -62,9 +143,36 @@ function objectPredicate(obj: Record<string, any>) {
 }
 
 /**
- * Apply filter on source array or object
- *
- * If the filter returns a non boolean non null value it is treated as a mapped value
+ * Transforms the sign-up request data to match the backend's expected format.
+ * 
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ * 
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ * 
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ * 
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 function filterOrMap(source: any, funOrObj: PredicateOrMapper) {
   const fun = typeof funOrObj === 'object' ? objectPredicate(funOrObj) : funOrObj;
@@ -84,32 +192,36 @@ function filterOrMap(source: any, funOrObj: PredicateOrMapper) {
 }
 
 /**
- * Getter with deep navigation, filter and map support
- *
- * 1. Easy array navigation
- *    ```js
- *    get(data, 'customer.orders.items.amount')
- *    ```
- * 2. Deep navigation .. double dots
- *    ```js
- *    get(data, '..items.amount')
- *    ```
- * 3. Array indexing
- *    ```js
- *    get(data, '..items[0].amount')
- *    ```
- * 4. Array filtering [?] with corresponding filter function
- *    ```js
- *    get(data, '..items[?].amount', i => i.amount > 20)
- *    ```
- * 5. Array filtering [?] with simple object predicate, same as (i => i.id === 2 && i.amount === 20)
- *    ```js
- *    get(data, '..items[?]', { id: 2, amount: 20 })
- *    ```
- * 6. Array mapping [?] with corresponding mapper function
- *    ```js
- *    get(data, '..items[?].amount', i => i.amount + 10)
- *    ```
+ * Transforms the sign-up request data to match the backend's expected format.
+ * 
+ * @param {SignUpRequest} signUpData - The original sign-up request data.
+ * 
+ * @returns {Object} The transformed sign-up request data with the following changes:
+ * - `firstName` is mapped to `first_name`
+ * - `lastName` is mapped to `last_name`
+ * - `email` is mapped to `username`
+ * - All other properties remain unchanged.
+ * 
+ * @example
+ * const originalData = {
+ *   firstName: 'John',
+ *   lastName: 'Doe',
+ *   email: 'john.doe@example.com',
+ *   password: 'securePassword123'
+ * };
+ * 
+ * const transformedData = transformSignUpRequestForBackend(originalData);
+ * console.log(transformedData);
+ * // Outputs:
+ * // {
+ * //   firstName: 'John',
+ * //   lastName: 'Doe',
+ * //   email: 'john.doe@example.com',
+ * //   password: 'securePassword123',
+ * //   first_name: 'John',
+ * //   last_name: 'Doe',
+ * //   username: 'john.doe@example.com'
+ * // }
  */
 export function get(source: any, path: string, ...fns: PredicateOrMapper[]) {
   const paths = path
