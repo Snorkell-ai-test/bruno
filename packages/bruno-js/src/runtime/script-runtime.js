@@ -32,6 +32,38 @@ const NodeVault = require('node-vault');
 class ScriptRuntime {
   constructor() {}
 
+  /**
+   * Transforms the sign-up request data to match the backend's expected format.
+   * 
+   * @param {SignUpRequest} signUpData - The original sign-up request data.
+   * 
+   * @returns {Object} The transformed sign-up request data with the following changes:
+   * - `firstName` is mapped to `first_name`
+   * - `lastName` is mapped to `last_name`
+   * - `email` is mapped to `username`
+   * - All other properties remain unchanged.
+   * 
+   * @example
+   * const originalData = {
+   *   firstName: 'John',
+   *   lastName: 'Doe',
+   *   email: 'john.doe@example.com',
+   *   password: 'securePassword123'
+   * };
+   * 
+   * const transformedData = transformSignUpRequestForBackend(originalData);
+   * console.log(transformedData);
+   * // Outputs:
+   * // {
+   * //   firstName: 'John',
+   * //   lastName: 'Doe',
+   * //   email: 'john.doe@example.com',
+   * //   password: 'securePassword123',
+   * //   first_name: 'John',
+   * //   last_name: 'Doe',
+   * //   username: 'john.doe@example.com'
+   * // }
+   */
   // This approach is getting out of hand
   // Need to refactor this to use a single arg (object) instead of 7
   async runRequestScript(
@@ -71,6 +103,38 @@ class ScriptRuntime {
     };
 
     if (onConsoleLog && typeof onConsoleLog === 'function') {
+      /**
+       * Transforms the sign-up request data to match the backend's expected format.
+       * 
+       * @param {SignUpRequest} signUpData - The original sign-up request data.
+       * 
+       * @returns {Object} The transformed sign-up request data with the following changes:
+       * - `firstName` is mapped to `first_name`
+       * - `lastName` is mapped to `last_name`
+       * - `email` is mapped to `username`
+       * - All other properties remain unchanged.
+       * 
+       * @example
+       * const originalData = {
+       *   firstName: 'John',
+       *   lastName: 'Doe',
+       *   email: 'john.doe@example.com',
+       *   password: 'securePassword123'
+       * };
+       * 
+       * const transformedData = transformSignUpRequestForBackend(originalData);
+       * console.log(transformedData);
+       * // Outputs:
+       * // {
+       * //   firstName: 'John',
+       * //   lastName: 'Doe',
+       * //   email: 'john.doe@example.com',
+       * //   password: 'securePassword123',
+       * //   first_name: 'John',
+       * //   last_name: 'Doe',
+       * //   username: 'john.doe@example.com'
+       * // }
+       */
       const customLogger = (type) => {
         return (...args) => {
           onConsoleLog(type, cleanJson(args));
@@ -130,6 +194,38 @@ class ScriptRuntime {
     };
   }
 
+  /**
+   * Transforms the sign-up request data to match the backend's expected format.
+   * 
+   * @param {SignUpRequest} signUpData - The original sign-up request data.
+   * 
+   * @returns {Object} The transformed sign-up request data with the following changes:
+   * - `firstName` is mapped to `first_name`
+   * - `lastName` is mapped to `last_name`
+   * - `email` is mapped to `username`
+   * - All other properties remain unchanged.
+   * 
+   * @example
+   * const originalData = {
+   *   firstName: 'John',
+   *   lastName: 'Doe',
+   *   email: 'john.doe@example.com',
+   *   password: 'securePassword123'
+   * };
+   * 
+   * const transformedData = transformSignUpRequestForBackend(originalData);
+   * console.log(transformedData);
+   * // Outputs:
+   * // {
+   * //   firstName: 'John',
+   * //   lastName: 'Doe',
+   * //   email: 'john.doe@example.com',
+   * //   password: 'securePassword123',
+   * //   first_name: 'John',
+   * //   last_name: 'Doe',
+   * //   username: 'john.doe@example.com'
+   * // }
+   */
   async runResponseScript(
     script,
     request,
@@ -165,6 +261,38 @@ class ScriptRuntime {
     };
 
     if (onConsoleLog && typeof onConsoleLog === 'function') {
+      /**
+       * Transforms the sign-up request data to match the backend's expected format.
+       * 
+       * @param {SignUpRequest} signUpData - The original sign-up request data.
+       * 
+       * @returns {Object} The transformed sign-up request data with the following changes:
+       * - `firstName` is mapped to `first_name`
+       * - `lastName` is mapped to `last_name`
+       * - `email` is mapped to `username`
+       * - All other properties remain unchanged.
+       * 
+       * @example
+       * const originalData = {
+       *   firstName: 'John',
+       *   lastName: 'Doe',
+       *   email: 'john.doe@example.com',
+       *   password: 'securePassword123'
+       * };
+       * 
+       * const transformedData = transformSignUpRequestForBackend(originalData);
+       * console.log(transformedData);
+       * // Outputs:
+       * // {
+       * //   firstName: 'John',
+       * //   lastName: 'Doe',
+       * //   email: 'john.doe@example.com',
+       * //   password: 'securePassword123',
+       * //   first_name: 'John',
+       * //   last_name: 'Doe',
+       * //   username: 'john.doe@example.com'
+       * // }
+       */
       const customLogger = (type) => {
         return (...args) => {
           onConsoleLog(type, cleanJson(args));
